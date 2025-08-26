@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Manager</title>
+</head>
+<body>
+    <h2>Welcome, {{ session.username }}</h2>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <h3>Add Student</h3>
+    <form method="POST">
+        <p>Name: <input type="text" name="username" required></p>
+        <p>USN: <input type="text" name="usn" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><button type="submit">Add</button></p>
+    </form>
+
+    <h3>Students List</h3>
+    <ul>
+        {% for s in students %}
+            <li>{{ s.name }} (USN: {{ s.usn }})
+                <a href="{{ url_for('delete_student', id=s.id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
