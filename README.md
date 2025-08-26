@@ -24,14 +24,3 @@ This project is built as a beginner-friendly example while learning **Flask, SQL
 - **Version Control**: Git + GitHub
 
 ---
-
-
----
-
-## ⚙️ Setup Instructions
-
-Follow these steps to run the project locally:
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/thejas-06/Flask-student-manager.git
