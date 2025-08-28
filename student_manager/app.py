@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = "supersecretkey"   # Needed for session & flash
 
-# ---------------- Database Setup ----------------
+#Database Setup 
 engine = create_engine("mysql+pymysql://root:@localhost/student")
 Base = declarative_base()
 
@@ -14,7 +14,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), unique=True)
-    usn = Column(Integer, unique=True)
+    usn = Column(String(255), unique=True)
     passw = Column(String(255))
 
 Base.metadata.create_all(engine)
@@ -22,7 +22,7 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 db_session = Session()
 
-# ---------------- Authentication ----------------
+#Authentication
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -34,7 +34,7 @@ def register():
         hashed_pw = generate_password_hash(password)
 
         # Save new user
-        new_user = User(name=username, usn=int(usn), passw=hashed_pw)
+        new_user = User(name=username, usn=usn, passw=hashed_pw)
         db_session.add(new_user)
         db_session.commit()
 
@@ -70,7 +70,7 @@ def logout():
     flash("Logged out successfully.")
     return redirect(url_for("login"))
 
-# ---------------- Student Manager ----------------
+#Student Manager
 @app.route("/", methods=["GET", "POST"])
 def home():
     if "user_id" not in session:
@@ -107,3 +107,4 @@ def delete_student(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
