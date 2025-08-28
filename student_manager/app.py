@@ -83,7 +83,7 @@ def home():
         password = request.form.get("password")
 
         hashed_pw = generate_password_hash(password)
-        new_student = User(name=username, usn=int(usn), passw=hashed_pw)
+        new_student = User(name=username, usn=usn, passw=hashed_pw)
         db_session.add(new_student)
         db_session.commit()
         return redirect(url_for("home"))
@@ -107,4 +107,5 @@ def delete_student(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
